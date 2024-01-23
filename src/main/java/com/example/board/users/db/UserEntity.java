@@ -1,5 +1,6 @@
 package com.example.board.users.db;
 
+import com.example.board.users.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,13 +20,17 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 45, nullable = false)
     private String userName;
 
+    @Column(length = 45, nullable = false)
     private String email;
 
+    @Column(length = 45, nullable = false)
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING) // string 타입의 enum 사용
+    private UserStatus status;
 
     private LocalDateTime registeredAt;
 
