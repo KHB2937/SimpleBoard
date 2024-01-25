@@ -2,6 +2,7 @@ package com.example.board.users.controller;
 
 import com.example.board.common.api.Api;
 import com.example.board.users.business.UserBusiness;
+import com.example.board.users.model.UserLoginRequest;
 import com.example.board.users.model.UserRegisterRequest;
 import com.example.board.users.model.UserResponse;
 import jakarta.validation.Valid;
@@ -25,6 +26,16 @@ public class UserOpenApiController {
             @RequestBody Api<UserRegisterRequest> request
     ){
         var response = userBusiness.register(request.getBody());
+        return Api.OK(response);
+    }
+
+    //로그인
+    @PostMapping("/login")
+    public Api<UserResponse> login(
+            @Valid
+            @RequestBody Api<UserLoginRequest> request
+    ){
+        var response = userBusiness.login(request.getBody());
         return Api.OK(response);
     }
 }

@@ -4,6 +4,7 @@ import com.example.board.common.annotation.Business;
 import com.example.board.common.error.ErrorCode;
 import com.example.board.common.exception.ApiException;
 import com.example.board.users.converter.UserConverter;
+import com.example.board.users.model.UserLoginRequest;
 import com.example.board.users.model.UserRegisterRequest;
 import com.example.board.users.model.UserResponse;
 import com.example.board.users.service.UserService;
@@ -37,5 +38,20 @@ public class UserBusiness {
 //                .map(userService::register)
 //                .map(userConverter::toResponse)
 //                .orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT, "request null"));
+    }
+
+    /*
+    * 1. email, password를 가지고 사용자 체크
+    * 2. user entity 로그인 확인
+    * 3. token 생성
+    * 4. token response*/
+    public UserResponse login(UserLoginRequest request){
+        var userEntity = userService.login(request.getEmail(), request.getPassword());
+        // 사용자 없으면 throw
+
+        // TODO 토큰 생성
+
+        return userConverter.toResponse(userEntity);
+
     }
 }

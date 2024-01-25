@@ -1,6 +1,7 @@
 package com.example.board.users.service;
 
 import com.example.board.common.error.ErrorCode;
+import com.example.board.common.error.UserErrorCode;
 import com.example.board.common.exception.ApiException;
 import com.example.board.users.db.UserEntity;
 import com.example.board.users.db.UserRepository;
@@ -31,5 +32,31 @@ public class UserService {
                 }).orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT, "User Entity Null"));
     }
 
+//    public UserEntity register(UserEntity userEntity){
+//
+//        userEntity.setStatus(UserStatus.REGISTERED);
+//        userEntity.setRegisteredAt(LocalDateTime.now());
+//
+//        return userRepository.save(userEntity);
+//    }
 
+
+    public UserEntity login(
+            String email,
+            String passowrd
+    ){
+        var entity = getUserWithThrow(email, passowrd);
+        return entity;
+    }
+
+    public UserEntity getUserWithThrow(
+            String email,
+            String password
+    ){
+        return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
+                email,
+                password,
+                UserStatus.REGISTERED
+        ).orElseThrow(()-> new ApiException(UserErrorCode.USER_NOT_FOUND));
+    }
 }
