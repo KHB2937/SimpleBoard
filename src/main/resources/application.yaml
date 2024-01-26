@@ -10,5 +10,13 @@ spring:
     url: jdbc:mysql://localhost:3306/myblog?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: gmlcms11
+    password:
+
+token:
+  secret:
+    key: SprngBootJWTHelperTokenSecretKeyValue123!@#
+  access-token:
+    plus-hour: 1
+  refresh-token:
+    plus-hour: 12
 
