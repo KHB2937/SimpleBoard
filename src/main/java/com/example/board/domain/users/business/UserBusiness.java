@@ -1,6 +1,8 @@
 package com.example.board.domain.users.business;
 
 import com.example.board.common.annotation.Business;
+import com.example.board.domain.token.business.TokenBusiness;
+import com.example.board.domain.token.model.TokenResponse;
 import com.example.board.domain.users.converter.UserConverter;
 import com.example.board.domain.users.model.UserLoginRequest;
 import com.example.board.domain.users.model.UserRegisterRequest;
@@ -14,6 +16,7 @@ public class UserBusiness {
 
     private final UserService userService;
     private final UserConverter userConverter;
+    private final TokenBusiness tokenBusiness;
 
     /*
     사용자에 대한 가입처리 로직
@@ -41,13 +44,15 @@ public class UserBusiness {
     * 2. user entity 로그인 확인
     * 3. token 생성
     * 4. token response*/
-    public UserResponse login(UserLoginRequest request){
+    public TokenResponse login(UserLoginRequest request){
         var userEntity = userService.login(request.getEmail(), request.getPassword());
         // 사용자 없으면 throw
 
         // TODO 토큰 생성
 
-        return userConverter.toResponse(userEntity);
+        var tokenResponse = tokenBusiness.issueToken(userEntity);
+
+        return tokenResponse;
 
     }
 }
