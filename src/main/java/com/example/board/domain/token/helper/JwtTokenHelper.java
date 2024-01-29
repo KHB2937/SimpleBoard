@@ -5,6 +5,7 @@ import com.example.board.common.error.TokenErrorCode;
 import com.example.board.common.exception.ApiException;
 import com.example.board.domain.token.ifs.TokenHelperIfs;
 import com.example.board.domain.token.model.TokenDto;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -85,24 +86,34 @@ public class JwtTokenHelper implements TokenHelperIfs {
 
         var key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
-        var parser = Jwts.parserBuilder()
+        var parser = Jwts.parser()
                 .setSigningKey(key)
                 .build();
 
         try {
-            var result = parser.parsePlaintextJws(token);
-            return new HashMap<String, Object>(Integer.parseInt(result.getBody()));
+            var claimsJws = parser.parseClaimsJws(token);
+            Claims claims = claimsJws.getBody();
 
+            // 토큰의 "userId" 값을 가져오기
+            Integer userId = claims.get("userId", Integer.class);
 
-        }catch (Exception e){
-            if(e instanceof SignatureException){
+            // 그 외의 클레임도 필요에 따라 가져오기 가능
+            // String username = claims.get("username", String.class);
+
+            Map<String, Object> result = new HashMap<>();
+            result.put("userId", userId);
+            // result.put("username", username);
+
+            return result;
+        } catch (Exception e) {
+            if (e instanceof SignatureException) {
                 // 토큰이 유효하지 않을 때
                 throw new ApiException(TokenErrorCode.INVALID_TOKEN, e);
-            } else if(e instanceof ExpiredJwtException){
+            } else if (e instanceof ExpiredJwtException) {
                 // 만료된 토큰
                 throw new ApiException(TokenErrorCode.EXPIRED_TOKEN, e);
-            }else {
-                // 그외 에러
+            } else {
+                // 그 외 에러
                 throw new ApiException(TokenErrorCode.TOKEN_EXCEPTION, e);
             }
         }
