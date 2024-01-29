@@ -30,18 +30,18 @@ public class UserConverter {
 
     public UserResponse toResponse(UserEntity userEntity){
         return Optional.ofNullable(userEntity)
-                .map(it -> {
-                    return UserResponse.builder()
-                            .id(userEntity.getId())
-                            .userName(userEntity.getUserName())
-                            .email(userEntity.getEmail())
-                            .status(userEntity.getStatus())
-                            .registeredAt(userEntity.getRegisteredAt())
-                            .unregisteredAt(userEntity.getUnregisteredAt())
-                            .build();
+            .map(it -> {
+                return UserResponse.builder()
+                        .id(userEntity.getId())
+                        .userName(userEntity.getUserName())
+                        .email(userEntity.getEmail())
+                        .status(userEntity.getStatus())
+                        .registeredAt(userEntity.getRegisteredAt())
+                        .unregisteredAt(userEntity.getUnregisteredAt())
+                        .build();
 
-                }).orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserEntity Null"));
-
+            })
+            .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserEntity Null"));
 
     }
 }
