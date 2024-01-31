@@ -1,5 +1,6 @@
 package com.example.board.domain.post.board.model;
 
+import com.example.board.domain.users.model.UserResponse;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotBlank;
@@ -12,10 +13,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class BoardRequest {
+public class UserBoardRequest {
 
-//    @NotBlank
-    private String userName;
+    @NotBlank
+    private UserResponse userName;
 
     @NotBlank
     private String title;

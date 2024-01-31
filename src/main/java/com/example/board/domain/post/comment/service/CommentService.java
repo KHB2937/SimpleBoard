@@ -6,6 +6,8 @@ import com.example.board.domain.post.comment.db.CommentEntity;
 import com.example.board.domain.post.comment.db.CommentRepository;
 import com.example.board.domain.post.comment.model.CommentDto;
 import com.example.board.domain.post.comment.model.CommentRequest;
+import com.example.board.domain.users.db.UserRepository;
+import com.example.board.domain.users.model.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
     private final CommentConverter commentConverter;
+    private final UserRepository userRepository;
 
 
     /**
@@ -33,7 +36,7 @@ public class CommentService {
     ){
         // 주어진 boardId에 해당하는 BoardEntity를 찾음
         var boardEntity = boardRepository.findById(commentRequest.getBoardId()).get();
-
+//        var userEntity = userRepository.findFirstByUserName(commentRequest.getUserName()).get();
         // CommentEntity를 생성하고 저장
         var entity = CommentEntity.builder()
                 .boardEntity(boardEntity)

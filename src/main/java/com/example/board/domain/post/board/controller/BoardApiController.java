@@ -4,6 +4,7 @@ import com.example.board.domain.post.board.db.BoardEntity;
 import com.example.board.domain.post.board.model.BoardDto;
 import com.example.board.domain.post.board.model.BoardRequest;
 import com.example.board.domain.post.board.service.BoardService;
+import com.example.board.domain.users.model.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,8 @@ public class BoardApiController {
     @PostMapping("")
     public BoardEntity create(
             @Valid
-            @RequestBody BoardRequest boardRequest
+            @RequestBody BoardRequest boardRequest,
+            UserResponse userResponse
             ){
         return boardService.create(boardRequest);
     }

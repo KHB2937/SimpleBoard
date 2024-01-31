@@ -1,10 +1,13 @@
 package com.example.board.domain.users.db;
 
+import com.example.board.domain.post.board.db.BoardEntity;
+import com.example.board.domain.post.comment.db.CommentEntity;
 import com.example.board.domain.users.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,4 +39,10 @@ public class UserEntity {
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;
+
+//    @OneToMany(mappedBy = "user", orphanRemoval = true)
+//    private List<BoardEntity> boards;
+//
+//    @OneToMany(mappedBy = "user", orphanRemoval = true)
+//    private List<CommentEntity> comments;
 }

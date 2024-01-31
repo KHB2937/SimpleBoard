@@ -4,16 +4,11 @@ import com.example.board.common.annotation.Business;
 import com.example.board.domain.token.business.TokenBusiness;
 import com.example.board.domain.token.model.TokenResponse;
 import com.example.board.domain.users.converter.UserConverter;
-import com.example.board.domain.users.model.User;
-import com.example.board.domain.users.model.UserLoginRequest;
-import com.example.board.domain.users.model.UserRegisterRequest;
-import com.example.board.domain.users.model.UserResponse;
+import com.example.board.domain.users.model.*;
 import com.example.board.domain.users.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
-import java.util.Objects;
+import java.util.Optional;
 
 @Business
 @RequiredArgsConstructor
@@ -63,4 +58,13 @@ public class UserBusiness {
         var response = userConverter.toResponse(userEntity);
         return response;
     }
+
+    public Optional<UserName> boardResponse(User user){
+        var userEntity = userService.getUserWithThrow(user.getUserName());
+        var response = userConverter.boardResponse(userEntity);
+
+        return response;
+
+    }
+
 }

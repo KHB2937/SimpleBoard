@@ -4,6 +4,7 @@ import com.example.board.common.annotation.Converter;
 import com.example.board.common.error.ErrorCode;
 import com.example.board.common.exception.ApiException;
 import com.example.board.domain.users.db.UserEntity;
+import com.example.board.domain.users.model.UserName;
 import com.example.board.domain.users.model.UserResponse;
 import com.example.board.domain.users.model.UserRegisterRequest;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,15 @@ public class UserConverter {
             })
             .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserEntity Null"));
 
+    }
+
+    public Optional<UserName> boardResponse(UserEntity userEntity){
+        return Optional.ofNullable(Optional.ofNullable(userEntity)
+                .map(it -> {
+                    return UserName.builder()
+                            .userName(userEntity.getUserName())
+                            .build();
+                })
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserEntity Null")));
     }
 }

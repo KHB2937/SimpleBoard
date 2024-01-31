@@ -2,10 +2,14 @@ package com.example.board.domain.post.board.converter;
 
 import com.example.board.domain.post.board.db.BoardEntity;
 import com.example.board.domain.post.board.model.BoardDto;
+import com.example.board.domain.post.board.model.UserBoardRequest;
+import com.example.board.domain.post.board.model.UserBoardResponse;
 import com.example.board.domain.post.comment.converter.CommentConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,4 +36,17 @@ public class BoardConverter {
                 .build()
                 ;
     }
+
+//    public UserBoardResponse toResponse(UserBoardRequest userBoardRequest){
+//        return Optional.ofNullable(userBoardRequest)
+//                .map(it -> {
+//                    return UserBoardResponse.builder()
+//                            .userName()
+//                            .title()
+//                            .content()
+//                            .boardAt(LocalDateTime.now())
+//                            .status()
+//                            .build();
+//                })
+//    }
 }

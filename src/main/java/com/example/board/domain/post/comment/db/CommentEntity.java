@@ -20,7 +20,6 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude

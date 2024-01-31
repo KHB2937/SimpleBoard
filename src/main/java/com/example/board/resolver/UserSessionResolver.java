@@ -45,7 +45,7 @@ public class UserSessionResolver implements HandlerMethodArgumentResolver {
         // 사용자 정보 셋팅
         return User.builder()
                 .id(userEntity.getId())
-                .name(userEntity.getUserName())
+                .userName(userEntity.getUserName())
                 .email(userEntity.getEmail())
                 .status(userEntity.getStatus())
                 .password(userEntity.getPassword())

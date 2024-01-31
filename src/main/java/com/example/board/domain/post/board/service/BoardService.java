@@ -5,7 +5,12 @@ import com.example.board.domain.post.board.db.BoardEntity;
 import com.example.board.domain.post.board.db.BoardRepository;
 import com.example.board.domain.post.board.model.BoardDto;
 import com.example.board.domain.post.board.model.BoardRequest;
+import com.example.board.domain.post.board.model.UserBoardRequest;
 import com.example.board.domain.post.comment.db.CommentRepository;
+import com.example.board.domain.users.db.UserEntity;
+import com.example.board.domain.users.model.User;
+import com.example.board.domain.users.model.UserResponse;
+import com.example.board.domain.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +25,35 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final BoardConverter boardConverter;
+    private final UserService userService;
+
 
     public BoardEntity create(
             BoardRequest boardRequest
     ){
+        UserEntity userEntity = userService.getUserWithThrow(boardRequest.getUserName());
+
         var entity = BoardEntity.builder()
+//                .user(userEntity)
                 .userName(boardRequest.getUserName())
                 .title(boardRequest.getTitle())
                 .content(boardRequest.getContent())
+                .boardAt(LocalDateTime.now())
+                .status("REGISTERED")
+                .build()
+                ;
+
+        return boardRepository.save(entity);
+    }
+
+    public BoardEntity create(
+            UserBoardRequest userboardRequest,
+            UserResponse userResponse
+    ){
+        var entity = BoardEntity.builder()
+//                .userName(String.valueOf(userboardRequest.getUserName()))
+                .title(userboardRequest.getTitle())
+                .content(userboardRequest.getContent())
                 .boardAt(LocalDateTime.now())
                 .status("REGISTERED")
                 .build()
@@ -65,4 +91,5 @@ public class BoardService {
 
         boardRepository.delete(boardDelete);
     }
+
 }

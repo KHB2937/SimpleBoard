@@ -14,4 +14,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     // 주어진 email, password, status에 따라 내림차순으로 정렬된 첫 번째 UserEntity를 찾는 메서드
     // SQL 쿼리: SELECT * FROM user WHERE email = ? AND password = ? AND status = ? ORDER BY id DESC LIMIT 1;
     Optional<UserEntity> findFirstByEmailAndPasswordAndStatusOrderByIdDesc(String email, String password, UserStatus status);
+
+    Optional<UserEntity> findFirstByUserNameAndStatusOrderByIdDesc(String userName, UserStatus status);
+
+    Optional<UserEntity> findFirstByUserName(String userName);
 }
