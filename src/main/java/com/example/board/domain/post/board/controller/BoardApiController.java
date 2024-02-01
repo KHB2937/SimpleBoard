@@ -1,9 +1,12 @@
 package com.example.board.domain.post.board.controller;
 
+import com.example.board.common.annotation.UserSession;
 import com.example.board.domain.post.board.db.BoardEntity;
 import com.example.board.domain.post.board.model.BoardDto;
 import com.example.board.domain.post.board.model.BoardRequest;
 import com.example.board.domain.post.board.service.BoardService;
+import com.example.board.domain.users.db.UserEntity;
+import com.example.board.domain.users.model.User;
 import com.example.board.domain.users.model.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +25,9 @@ public class BoardApiController {
     public BoardEntity create(
             @Valid
             @RequestBody BoardRequest boardRequest,
-            UserResponse userResponse
+            @UserSession User user
             ){
-        return boardService.create(boardRequest);
+        return boardService.create(boardRequest, user);
     }
 
     @GetMapping("/all")

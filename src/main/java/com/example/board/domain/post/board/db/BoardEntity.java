@@ -1,6 +1,8 @@
 package com.example.board.domain.post.board.db;
 
 import com.example.board.domain.post.comment.db.CommentEntity;
+import com.example.board.domain.users.db.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -32,6 +34,12 @@ public class BoardEntity {
     private LocalDateTime boardAt;
 
     private String status;
+
+//    @ManyToOne
+//    @JsonIgnore
+//    @ToString.Exclude
+//    @JoinColumn(name = "users_id") // user_id는 BoardEntity의 외래키
+//    private UserEntity user;
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @Builder.Default

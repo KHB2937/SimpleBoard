@@ -15,7 +15,7 @@ import lombok.*;
 public class BoardRequest {
 
 //    @NotBlank
-    private String userName;
+//    private String userName;
 
     @NotBlank
     private String title;
