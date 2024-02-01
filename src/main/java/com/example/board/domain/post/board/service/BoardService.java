@@ -33,27 +33,7 @@ public class BoardService {
     private final CommentRepository commentRepository;
     private final BoardConverter boardConverter;
     private final UserService userService;
-    private final JwtTokenHelper jwtTokenHelper;
-    private final UserRepository userRepository;
     private final UserConverter userConverter;
-
-    @Autowired
-    private HttpServletRequest request;
-
-//    public BoardEntity create(BoardRequest boardRequest) {
-//
-//
-//        var entity = BoardEntity.builder()
-//                .userName(boardRequest.getUserName()) // 사용자 이름을 가져와 설정합니다.
-//                .title(boardRequest.getTitle())
-//                .content(boardRequest.getContent())
-//                .boardAt(LocalDateTime.now())
-//                .status("REGISTERED")
-//                .build();
-//
-//        return boardRepository.save(entity);
-//    }
-
 
     public BoardEntity create(
             @Valid BoardRequest userboardRequest,
